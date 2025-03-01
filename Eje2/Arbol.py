@@ -60,7 +60,7 @@ class Arbol:
             for valor in self.nodos_joined:
                 nodo = self.obtain(self.raiz, valor)
                 if nodo and nodo.izquierda and nodo.derecha:
-                    nodos_children.append(valor)
+                 nodos_children.append(valor)
             return nodos_children
 
     def obtain(self, nodo, valor):
@@ -140,7 +140,7 @@ def inorden(nodo):
 inorden(arbol.raiz)
 
     # Mostrar nodos con dos hijos
-nodos_content = arbol.show_nodos()
+nodos_content =raiz,arbol.show_nodos()
 print(f"\nNodos ingresados con exactamente dos hijos: {nodos_content}")
 
     #mostrar nodos con hijos pares en preorden- suma de los hijos de los nodos
