@@ -72,10 +72,49 @@ class Arbol:
                 return self.obtain(nodo.izquierda, valor)
             else:
                 return self.obtain(nodo.derecha, valor)
+    # recorrido en preorden
+    def preorden(self):
+        resultado = []
+        self.preorden_recursivo(self.raiz, resultado)
+        return resultado
+
+    def preorden_recursivo(self, nodo, resultado):
+        if nodo:
+            resultado.append(nodo.valor)  
+            self.preorden_recursivo(nodo.izquierda, resultado)
+            self.preorden_recursivo(nodo.derecha, resultado)
+            
+    def nodos_con_hijos_pares_preorden(self, nodo, resultado):
+        if nodo:
+       
+            if (nodo.izquierda and nodo.izquierda.valor % 2 == 0) or \
+            (nodo.derecha and nodo.derecha.valor % 2 == 0):
+                resultado.append(nodo.valor)  
+        
+            self.nodos_con_hijos_pares_preorden(nodo.izquierda, resultado)
+            self.nodos_con_hijos_pares_preorden(nodo.derecha, resultado)
+    
+    def sumas_hijos_preorden(self, nodo, resultado):
+        if nodo:  
+            suma = 0
+            if nodo.izquierda:
+                suma += nodo.izquierda.valor
+            if nodo.derecha:
+                suma += nodo.derecha.valor
+        
+            resultado.append(suma)
+
+     
+            self.sumas_hijos_preorden(nodo.izquierda, resultado)
+            self.sumas_hijos_preorden(nodo.derecha, resultado)
+
                 
 ##Captura de datos desde el teclado
 raiz = int(input("Ingresa el valor de la raiz: "))
 arbol = Arbol(raiz)
+resultado = []
+nodos_pares_preorden = []
+
 
 while True:
     num = int(input("Ingresa un número si deseas continuar, de lo contrario ingresa '0' para finalizar el ciclo: "))
@@ -103,3 +142,10 @@ inorden(arbol.raiz)
     # Mostrar nodos con dos hijos
 nodos_content = arbol.show_nodos()
 print(f"\nNodos ingresados con exactamente dos hijos: {nodos_content}")
+
+    #mostrar nodos con hijos pares en preorden- suma de los hijos de los nodos
+print("Recorrido Preorden:", arbol.preorden())
+arbol.nodos_con_hijos_pares_preorden(arbol.raiz, nodos_pares_preorden)
+print("Nodos con al menos un hijo par (recorrido preorden):", nodos_pares_preorden)
+arbol.sumas_hijos_preorden(arbol.raiz, resultado)
+print("Suma hijos:", ", ".join(map(str, resultado)))
