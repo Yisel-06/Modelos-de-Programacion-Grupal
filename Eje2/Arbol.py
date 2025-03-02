@@ -137,39 +137,55 @@ while True:
 bt_raiz = arbol.tree(arbol.raiz)
 print("\nÁrbol binario:")
 print(bt_raiz)
-print("--------------------------------------------------------------------------")
 
-print("Recorrido inorden: ")
-def inorden(nodo):
-        if nodo is not None:
-            inorden(nodo.izquierda)
-            print(nodo.valor, end=" ")
-            inorden(nodo.derecha)
-inorden(arbol.raiz)
-print("\n--------------------------------------------------------------------------")
+while True:
+    print("---------------------------------MENÚ-------------------------------------------")
+    print("|Ingresa 1 si deseas ver el recorrido inorden                                  |")
+    print("|Ingresa 2 si deseas ver el recorrido preorden                                 |")
+    print("|Ingresa 3 si deseas realizar una consulta en el árbol                         |")
+    print("--------------------------------------------------------------------------------")
+    
+    
+    num = int(input("Ingresa una opción: "))
+    if num == 1:
+    
+        print("Recorrido inorden: ")
+        def inorden(nodo):
+                if nodo is not None:
+                    inorden(nodo.izquierda)
+                    print(nodo.valor, end=" ")
+                    inorden(nodo.derecha)
+        inorden(arbol.raiz)
+        print("\n--------------------------------------------------------------------------")
 
-    # Mostrar nodos con dos hijos
-nodos_content =raiz,arbol.show_nodos()
-print(f"Nodos ingresados con exactamente dos hijos: {nodos_content}")
-print("--------------------------------------------------------------------------")
+            # Mostrar nodos con dos hijos
+        nodos_content =raiz,arbol.show_nodos()
+        print(f"Nodos ingresados con exactamente dos hijos: {nodos_content}")
 
-    # Mostrar nodos con hijos pares en preorden - suma de los hijos de los nodos
-print("Recorrido Preorden:", arbol.preorden())
-arbol.nodos_con_hijos_pares_preorden(arbol.raiz, nodos_pares_preorden)
-print("--------------------------------------------------------------------------")
+    elif num == 2:
 
-print("Nodos con al menos un hijo par (recorrido preorden):", nodos_pares_preorden)
-arbol.sumas_hijos_preorden(arbol.raiz, resultado)
-print("--------------------------------------------------------------------------")
+            # Mostrar nodos con hijos pares en preorden - suma de los hijos de los nodos
+        print("Recorrido Preorden:", arbol.preorden())
+        arbol.nodos_con_hijos_pares_preorden(arbol.raiz, nodos_pares_preorden)
+        print("--------------------------------------------------------------------------")
 
-print("Suma de sus hijos:", ", ".join(map(str, resultado)))
-print("--------------------------------------------------------------------------")
+        print("Nodos con al menos un hijo par (recorrido preorden):", nodos_pares_preorden)
+        arbol.sumas_hijos_preorden(arbol.raiz, resultado)
+        print("--------------------------------------------------------------------------")
 
-    # Buscar nodos
-busqueda = int(input("Ingresa el valor a buscar: "))
-print("--------------------------------------------------------------------------")
-if arbol.search(busqueda):
-    print(f"\nEl valor {busqueda} sí se encuentra en el árbol")
-else:
-    print(f"El valor {busqueda} no se encuentra en el árbol")
-print("--------------------------------------------------------------------------")
+        print("Suma de sus hijos:", ", ".join(map(str, resultado)))
+        
+    elif num == 3: 
+
+            # Buscar nodos
+        busqueda = int(input("Ingresa el valor a buscar: "))
+        print("--------------------------------------------------------------------------")
+        if arbol.search(busqueda):
+            print(f"\nEl valor {busqueda} sí se encuentra en el árbol")
+        else:
+            print(f"El valor {busqueda} no se encuentra en el árbol")
+        print("--------------------------------------------------------------------------")
+        break
+
+    else:
+        print("Opción Inválida") 
