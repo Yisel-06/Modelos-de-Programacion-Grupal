@@ -1,54 +1,51 @@
-from binarytree import Node
-
 class Nodo:
-    def __init__(self, valor):
+    def __init__(self, valor): ## Inicialización de los nodos
         self.valor = valor
         self.izquierda = None  
         self.derecha = None
 
 class Arbol:
-    def __init__(self, raiz):
+    def __init__(self, raiz): ## Inicialización de la raíz del árbol
         self.raiz = Nodo(raiz)
-        self.nodos_joined = []
+        self.nodos_joined = [] #lista de almacenamiento de nodos
 
     def insert(self, valor):
-        self.insert_recursive(self.raiz, valor)
-        self.nodos_joined.append(valor)
+        self.insert_recursive(self.raiz, valor) ## Envía la raíz y el valor que capturamos desde el teclado
+        self.nodos_joined.append(valor) # Almacena el valor ingresado
         
-    def insert_recursive(self, nodo, valor):
+    def insert_recursive(self, nodo, valor): ## Inserta los valores a la izquierda o a la derecha de los nodos según su valor 
         if valor < nodo.valor:               
             if nodo.izquierda is None:
                 nodo.izquierda = Nodo(valor)
+
             else:
                 self.insert_recursive(nodo.izquierda, valor)
+        
         elif valor > nodo.valor:
             if nodo.derecha is None:
                 nodo.derecha = Nodo(valor)
+
             else:
                 self.insert_recursive(nodo.derecha, valor)
 
-    # Función busqueda de nodos
+        else:
+            print("El valor no existe")
+
     def search(self, valor):
-        recorrido = []
-        if self.search_recursive(self.raiz, valor, recorrido):
-            print(" -> ".join(map(str, recorrido)))
-            return True
-        return False
-    
-    def search_recursive(self, nodo, valor,recorrido):
+        return self.search_recursive(self.raiz, valor) ## Envía la raiz y el valor que capturamos desde el teclado
+
+    def search_recursive(self, nodo, valor): ## La raiz la recibe en nodo
         if nodo is None:
             return False
-        recorrido.append(nodo.valor)
-        if valor == nodo.valor:
+        
+        if nodo == nodo.valor:
             return True
+        
         if valor < nodo.valor:
-            return self.search_recursive(nodo.izquierda, valor, recorrido)
-        else:
-            return self.search_recursive(nodo.derecha, valor, recorrido)
-
+            return self.search_recursive(nodo.izquierda, valor)
+        else: self.search_recursive(nodo.derecha, valor)
     def count_nodos(self):
         return self.count_nodos_recursive(self,raiz)
-    
     def count_nodos_recursive(self, nodo):
         if nodo is None:
            return 0
@@ -58,9 +55,13 @@ class Arbol:
         contador += self.count_nodos_recursive(nodo.izquierda)
         contador += self.count_nodos_recursive(nodo.derecha)
         return contador
-    
     def show_nodos(self):
             nodos_children = []
+            # Incluimos la raíz en el chequeo
+            if self.raiz and self.raiz.izquierda and self.raiz.derecha:
+                nodos_children.append(self.raiz.valor)
+
+            # Luego evaluamos el resto de los nodos
             for valor in self.nodos_joined:
                 nodo = self.obtain(self.raiz, valor)
                 if nodo and nodo.izquierda and nodo.derecha:
@@ -76,8 +77,7 @@ class Arbol:
                 return self.obtain(nodo.izquierda, valor)
             else:
                 return self.obtain(nodo.derecha, valor)
-            
-    # Recorrido en preorden
+    # recorrido en preorden
     def preorden(self):
         resultado = []
         self.preorden_recursivo(self.raiz, resultado)
@@ -109,83 +109,48 @@ class Arbol:
         
             resultado.append(suma)
 
+     
             self.sumas_hijos_preorden(nodo.izquierda, resultado)
             self.sumas_hijos_preorden(nodo.derecha, resultado)
+
                 
-    # Función árbol binario
-    def tree(self, nodo):
-        if nodo is None:
-            return None
-        bt_nodo = Node(nodo.valor)
-        bt_nodo.left = self.tree(nodo.izquierda)
-        bt_nodo.right = self.tree(nodo.derecha)
-        return bt_nodo
-            
-    # Ingresar datos desde la consola
+##Captura de datos desde el teclado
 raiz = int(input("Ingresa el valor de la raiz: "))
 arbol = Arbol(raiz)
 resultado = []
 nodos_pares_preorden = []
 
+
 while True:
     num = int(input("Ingresa un número si deseas continuar, de lo contrario ingresa '0' para finalizar el ciclo: "))
+
     if num == 0:
         break
     arbol.insert(num)
 
-    # Mostrar el árbol en consola
-bt_raiz = arbol.tree(arbol.raiz)
-print("\nÁrbol binario:")
-print(bt_raiz)
+busqueda = int(input("Ingresa el valor a buscar: "))
 
-while True:
-    print("---------------------------------MENÚ-------------------------------------------")
-    print("|Ingresa 1 si deseas ver el recorrido inorden                                  |")
-    print("|Ingresa 2 si deseas ver el recorrido preorden                                 |")
-    print("|Ingresa 3 si deseas realizar una consulta en el árbol                         |")
-    print("--------------------------------------------------------------------------------")
-    
-    
-    num = int(input("Ingresa una opción: "))
-    if num == 1:
-    
-        print("Recorrido inorden: ")
-        def inorden(nodo):
-                if nodo is not None:
-                    inorden(nodo.izquierda)
-                    print(nodo.valor, end=" ")
-                    inorden(nodo.derecha)
-        inorden(arbol.raiz)
-        print("\n--------------------------------------------------------------------------")
-
-            # Mostrar nodos con dos hijos
-        nodos_content =raiz,arbol.show_nodos()
-        print(f"Nodos ingresados con exactamente dos hijos: {nodos_content}")
-
-    elif num == 2:
-
-            # Mostrar nodos con hijos pares en preorden - suma de los hijos de los nodos
-        print("Recorrido Preorden:", arbol.preorden())
-        arbol.nodos_con_hijos_pares_preorden(arbol.raiz, nodos_pares_preorden)
-        print("--------------------------------------------------------------------------")
-
-        print("Nodos con al menos un hijo par (recorrido preorden):", nodos_pares_preorden)
-        arbol.sumas_hijos_preorden(arbol.raiz, resultado)
-        print("--------------------------------------------------------------------------")
-
-        print("Suma de sus hijos:", ", ".join(map(str, resultado)))
+if arbol.search(busqueda):
+     print(f"El valor {busqueda} se encuentra en el arbol")
         
-    elif num == 3: 
+else:
+        print(f"El valor {busqueda} no se encuentra en el arbol")
+print("Recorrido inorden")
+def inorden(nodo):
+        if nodo is not None:
+            inorden(nodo.izquierda)
+            print(nodo.valor, end=" ")
+            inorden(nodo.derecha)
 
-            # Buscar nodos
-        busqueda = int(input("Ingresa el valor a buscar: "))
-        print("--------------------------------------------------------------------------")
-        if arbol.search(busqueda):
-            print(f"\nEl valor {busqueda} sí se encuentra en el árbol")
-        else:
-            print(f"El valor {busqueda} no se encuentra en el árbol")
-        print("--------------------------------------------------------------------------")
-        break
+inorden(arbol.raiz)
 
-    else:
-        print("Opción Inválida") 
+    # Mostrar nodos con dos hijos
+nodos_content =arbol.show_nodos()
+print(f"\nNodos ingresados con exactamente dos hijos: {nodos_content}")
+
+    #mostrar nodos con hijos pares en preorden- suma de los hijos de los nodos
+print("Recorrido Preorden:", arbol.preorden())
+arbol.nodos_con_hijos_pares_preorden(arbol.raiz, nodos_pares_preorden)
+print("Nodos con al menos un hijo par (recorrido preorden):", nodos_pares_preorden)
+arbol.sumas_hijos_preorden(arbol.raiz, resultado)
+print("Suma hijos:", ", ".join(map(str, resultado)))
