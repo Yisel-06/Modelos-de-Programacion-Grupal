@@ -1,30 +1,46 @@
-import socket  # Librería
-host = "127.0.0.1" #Deben correr en el mismo host y puerto
-port =8000 #Este puerto corresponde al servidor el del cliente se asigna dinamico
+import socket
+import random
 
+host = "127.0.0.1"
+port = 8000
 
-#AF_INET Tipo de direcciones a los que se conecta el servidor
-#SOCK_STREAM Tipo de socket- stream: intercambio y flujo de datos
-
-# Crear el socket
+# Crear el socket del servidor
 mi_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mi_socket.bind((host, port))
 mi_socket.listen()
 
-print("Servidor escucha en {}:{}".format(host, port))
+print(f"Servidor escucha en {host}:{port}")
 
 cliente_socket, addr = mi_socket.accept()
-print("Conexionestablecida desde",addr)
+print(f"Conexión establecida desde {addr}")
+
+def generar_numero_servidor():
+    return random.randint(1, 10) 
 
 while True:
-     mensaje = cliente_socket.recv(1024).decode()
-     print(f"recibe: {mensaje}")
-     if mensaje.lower() == "fin":
-         break
-     
+    mensaje = cliente_socket.recv(1024).decode()
+    
+    if mensaje.lower() == "fin":
+        print("El cliente ha terminado el juego.")
+        break
+    
+    else:
+        numerocliente = int(mensaje)
+        
+        numeroservidor = generar_numero_servidor()
+        
+        print(f"Cliente envió: {numerocliente}")
+        print(f"Servidor generó: {numeroservidor}")
+    
+        if numerocliente == numeroservidor:
+            print(f"¡Coincidencia! Ambos eligieron: {numerocliente}")
+        else:
+            print(f"No coinciden. Servidor: {numeroservidor}, Cliente: {numerocliente}")
+
+
 cliente_socket.close()
 mi_socket.close()
-     
+print("Conexión cerrada.")
      
 
 
