@@ -1,7 +1,6 @@
-import socket  # Importar librería
+import socket
 import random
-import threading
-import time
+
 host = "127.0.0.1"
 port = 8000
 
@@ -11,26 +10,23 @@ ejecutando = True
 cliente_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 cliente_socket.connect((host, port))  # Conectar al servidor
 
-print("Hola desde el cliente")
+print('____________________\n')
 
-
-def generar_numAl():
-    global ejecutando 
-    while ejecutando:
-        numero = random.randrange(1, 10)  
-        print(f"Cliente generó: {numero}")
-        cliente_socket.sendall(str(numero).encode())
-        time.sleep(90) #genera cada x seg
-
-hilo = threading.Thread(target=generar_numAl)
-hilo.start()
+print('         Bienvenido al juego adivina adivinador           ')
+print('____________________')
 
 while True:
-    mensaje = input("Escibe fin si desea terminar el juego ")
+    
+    mensaje = input("Presiona 'enter' si desea iniciar el juego o 'fin' si desea salir")
+    numero = random.randint(1, 10)
+    print(f"Cliente generó: {numero}")
+    
+    cliente_socket.sendall(str(numero).encode())
+    
+    
     if mensaje.lower() == 'fin':
-        ejecutando= False
         cliente_socket.sendall(mensaje.encode())
-
+        ejecutando = False
         break
 
 cliente_socket.close()
