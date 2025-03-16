@@ -17,14 +17,16 @@ print('____________________')
 
 while True:
     
-    mensaje = input("Presiona 'enter' si desea iniciar el juego o 'fin' si desea salir")
-    numero = random.randint(1, 10)
-    print(f"Cliente generó: {numero}")
+    mensaje = input("Presiona 'enter' si deseas iniciar el juego o 'terminar' si deseas terminar: ")
     
-    cliente_socket.sendall(str(numero).encode())
+    if mensaje.lower() != 'terminar':
+        numero = random.randint(1, 10)
+        print(f"Cliente generó: {numero}")
+        
+        cliente_socket.sendall(str(numero).encode())
     
     
-    if mensaje.lower() == 'fin':
+    else:
         cliente_socket.sendall(mensaje.encode())
         ejecutando = False
         break
