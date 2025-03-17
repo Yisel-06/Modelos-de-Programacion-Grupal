@@ -20,6 +20,8 @@ while True:
     
     if len(numeros_cliente) == 10:
         numeros_cliente = []
+        print("->    ¡El juego se reinició, buena suerte! :D    <-")
+        print('__________________________________')
 
     mensaje = input("Presiona 'enter' si deseas iniciar el juego o 'terminar' si deseas terminar: ")
     
