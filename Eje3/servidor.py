@@ -5,13 +5,13 @@ host = "127.0.0.1"
 port = 8000
 
 # Crear el socket del servidor
-mi_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-mi_socket.bind((host, port))
-mi_socket.listen()
+servidor_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+servidor_socket.bind((host, port))
+servidor_socket.listen()
 
 print(f"Servidor escucha en {host}:{port}")
 
-cliente_socket, addr = mi_socket.accept()
+cliente_socket, addr = servidor_socket.accept()
 print(f"Conexión establecida desde {addr}")
 print('__________________________________')
 
@@ -70,7 +70,7 @@ while True:
             derrotas_consecutivas = 0
 
 cliente_socket.close()
-mi_socket.close()
+servidor_socket.close()
 
 print('Resultados:')
 print('- Cantidad de aciertos durante la partida:', victorias)
