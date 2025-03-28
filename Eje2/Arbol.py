@@ -45,9 +45,6 @@ class Arbol:
             return self.search_recursive(nodo.izquierda, valor, recorrido)
         else:
             return self.search_recursive(nodo.derecha, valor, recorrido)
-
-    def count_nodos(self):
-        return self.count_nodos_recursive(self,raiz)
     
     def count_nodos_recursive(self, nodo):
         if nodo is None:
