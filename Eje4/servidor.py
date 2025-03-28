@@ -29,7 +29,7 @@ while True:
     # Enviar respuesta al cliente
     conexion.sendall(respuesta.encode())
 
-    if len(lista) == 5:
+    if len(lista) == 30:
         mensaje_cierre = "Se han recibido 30 números, la conexión se cerrará."
         conexion.sendall(mensaje_cierre.encode())  # Avisar antes de cerrar
         print("La conexión se ha cerrado")
