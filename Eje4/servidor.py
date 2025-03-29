@@ -56,7 +56,8 @@ while True:
         break  # Si no hay datos, salir del bucle
 
     numero_cliente = int(data.decode())
-
+    if numero_cliente==numero_cliente:
+        print("")
     if 10 <= numero_cliente < 100:
         lista.append(numero_cliente)
         arbol.insert(numero_cliente)
