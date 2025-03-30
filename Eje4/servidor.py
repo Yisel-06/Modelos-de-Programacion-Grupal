@@ -61,6 +61,7 @@ while True:
     if 10 <= numero_cliente < 100:
         if numero_cliente in valorespdp:
             respuesta = "Número duplicado"
+            
         else:
             lista.append(numero_cliente)
             valorespdp.add(numero_cliente)
@@ -71,13 +72,13 @@ while True:
             print("Árbol binario:")
             print(bt_raiz)
         
-        if len(lista) == 5:
-            mensaje_cierre = "Se han recibido 5 números válidos, la conexión se cerrará."
-            conexion.sendall(mensaje_cierre.encode())  # Avisar antes de cerrar
-            print("La conexión se ha cerrado")
+            if len(lista) == 30:
+                mensaje_cierre = "Se han recibido 30 números, la conexión se cerrará."
+                conexion.sendall(mensaje_cierre.encode())  # Avisar antes de cerrar
+                print("La conexión se ha cerrado")
 
-            time.sleep(2)  # intervalo de tiempo para cerrar la conexión
-            break 
+                time.sleep(2)  # intervalo de tiempo para cerrar la conexión
+                break 
 
     else:
         respuesta = "El número no tiene dos dígitos"
