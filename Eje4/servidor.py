@@ -59,7 +59,7 @@ while True:
         
     if 10 <= numero_cliente < 100:
         if numero_cliente in lista:
-            respuesta = "Número duplicado"
+            respuesta = "Número repetido"
             
         else:
             lista.append(numero_cliente)
