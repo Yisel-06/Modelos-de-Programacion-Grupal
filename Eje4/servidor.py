@@ -75,7 +75,7 @@ while True:
                 conexion.sendall(mensaje_cierre.encode())  # Avisar antes de cerrar
                 print("La conexión se ha cerrado")
 
-                time.sleep(30)  # intervalo de tiempo para cerrar la conexión
+                time.sleep(2)  # intervalo de tiempo para cerrar la conexión
                 break 
 
     else:
