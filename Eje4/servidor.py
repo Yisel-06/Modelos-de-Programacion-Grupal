@@ -48,6 +48,7 @@ print("Conexión establecida con:", direccion)
 
 arbol = Arbol()
 lista = []
+valorespdp = set()
 
 while True:
     data = conexion.recv(4096)
@@ -56,21 +57,22 @@ while True:
         break  # Si no hay datos, salir del bucle
 
     numero_cliente = int(data.decode())
-    if numero_cliente==numero_cliente:
-        print("Prueba")
         
     if 10 <= numero_cliente < 100:
-        lista.append(numero_cliente)
-        arbol.insert(numero_cliente)
-
-        respuesta = "Número recibido y válido"
-    
-        bt_raiz = arbol.tree(arbol.raiz)
-        print("Árbol binario:")
-        print(bt_raiz)
+        if numero_cliente in valorespdp:
+            respuesta = "Número duplicado"
+        else:
+            lista.append(numero_cliente)
+            valorespdp.add(numero_cliente)
+            arbol.insert(numero_cliente)
+            respuesta = "Numero ingresado"
+        
+            bt_raiz = arbol.tree(arbol.raiz)
+            print("Árbol binario:")
+            print(bt_raiz)
         
         if len(lista) == 5:
-            mensaje_cierre = "Se han recibido 30 números, la conexión se cerrará."
+            mensaje_cierre = "Se han recibido 5 números válidos, la conexión se cerrará."
             conexion.sendall(mensaje_cierre.encode())  # Avisar antes de cerrar
             print("La conexión se ha cerrado")
 
