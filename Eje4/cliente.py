@@ -4,7 +4,7 @@ cliente_socket = socket.socket()  # Crea el socket
 cliente_socket.connect(("localhost", 8000))  # Conecta al servidor
 
 while True:
-    numero = input("Ingrese el número o 'Salir' para cerrar las conexiones ")
+    numero = input("Ingrese el número o 'Salir' para cerrar las conexiones: ")
 
     if numero.lower() == "salir":  # Permitir salida manual
         break
@@ -16,7 +16,7 @@ while True:
         int(numero)
     
     except ValueError:
-        print("Por favor, ingrese un número válido o 'Salir'.") 
+        print("Por favor, ingrese un número válido o 'Salir': ") 
         continue
 
     cliente_socket.sendall(str(numero).encode())  # Enviar número al servidor
